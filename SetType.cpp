@@ -71,7 +71,7 @@ SetType<T> SetType<T>::operator+(SetType & otherSet) {
     // since the add function knows not to add any elements that already are in the set, the add function can be used to copy the elements
     // also use the iterator to iterate through all the elements
     for (int i = 0; i < otherSet.numElems; i++) {
-        result->Add(otherSet.GetNextItem());
+        result.Add(otherSet.GetNextItem());
     }
     ResetIterator();
 
@@ -130,13 +130,13 @@ T SetType<T>::GetNextItem() {
     // Returns the current item and then move to the next item
     T item;
 
-    bucketIter = buckets[currBucket];
+    bucketIter = buckets[currBucket].begin();
     // this while statement allows you to skip over the buckets that do not contain any elements
     while (bucketIter == buckets[currBucket].end()) {
         // go the next bucket since no element exists in the previous one
         currBucket++;
         // set the bucketIter to the next bucket as well
-        bucketIter = buckets[currBucket];
+        bucketIter = buckets[currBucket].begin();
     }
     // at this point it means that there are elements that exist in the current bucket
     item = *bucketIter;
@@ -164,7 +164,7 @@ void SetType<T>::SetMaxLoad(double max) {
 
     maxLoad = max;
 }
-
+//SetType& operator=(SetType const& otherSet)
 template<class T>
 SetType<T>& SetType<T>::operator=(SetType const &other) {
     this->MakeEmpty();
@@ -172,8 +172,10 @@ SetType<T>& SetType<T>::operator=(SetType const &other) {
     // Your code here
     this->numBuckets = other.numBuckets;
     this->numElems = other.numElems;
+    T item;
     for (int i = 0; i < numElems; i++) {
-        this->Add(other.GetNextItem());
+        item = other.GetNextItem();
+        this->Add(item);
     }
     ResetIterator();
     // iterate through all the buckets
@@ -253,7 +255,7 @@ template<class T>
 void SetType<T>::MakeEmpty() {
     // iterate through the bucket and clear all the buckets
     for (int i = 0; i < numBuckets; i++) {
-        buckets[i].clear;
+        buckets[i].clear();
     }
 
 }
@@ -267,7 +269,7 @@ template<class T>
 void SetType<T>::ResetIterator() {
     currBucket = 0;
     iterCount = 0;
-    bucketIter = buckets[0];
+    bucketIter = buckets[0].begin();
 }
 
 
