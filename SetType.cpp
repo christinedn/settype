@@ -167,19 +167,40 @@ void SetType<T>::SetMaxLoad(double max) {
 //SetType& operator=(SetType const& otherSet)
 template<class T>
 SetType<T>& SetType<T>::operator=(SetType const &other) {
+    // Your code here
+    // delete buckets
+    delete [] buckets;
+
+    // reallocate correct number of buckets
+    buckets = new forward_list<T>[other.numBuckets];
+
+    // ensure that this instance of the set is empty
     this->MakeEmpty();
     //*this->MakeEmpty();
-    // Your code here
+
     this->numBuckets = other.numBuckets;
     this->numElems = other.numElems;
-    T item;
-    for (int i = 0; i < numElems; i++) {
-        item = other.GetNextItem();
-        this->Add(item);
+
+    for (int i = 0; i < this->numBuckets; i++) {
+        auto tempBucketIt = other.buckets[i].begin();
+        // this while statement skips over the buckets that do not have any elements
+        while (tempBucketIt == other.buckets[i].end()) {
+            i++;
+            tempBucketIt = other.buckets[i].begin();
+        }
+        // at this point it means there are elements that exist in the bucket
+        this->buckets[i].push_front(*tempBucketIt);
+        ++tempBucketIt;
     }
-    ResetIterator();
-    // iterate through all the buckets
-//    for (int i = 0; i < numBuckets; i++) {
+//    T item;
+//    for (int i = 0; i < numElems; i++) {
+//        item = other.GetNextItem();
+//        this->Add(item);
+//    }
+//    ResetIterator();
+
+     //iterate through all the buckets
+//    for (int i = 0; i < this->numBuckets; i++) {
 //        // iterate through the linked list within the index
 //        for (auto it = other.buckets[i].begin(); it != other.buckets[i].end(); it++) {
 //            this->buckets[i].push_front(*it);
