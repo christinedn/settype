@@ -234,6 +234,9 @@ void SetType<T>::Add(T elem) {
     // put the element in the corresponding index
     buckets[bucket].push_front(elem);
     ++numElems;
+//    cout << "num elements: " << numElems << endl;
+//    cout << "amt of buckets: " << numBuckets << endl;
+//    cout << "load factor: " << (double)numElems/numBuckets << endl;
 }
 
 template<class T>
@@ -275,7 +278,7 @@ void SetType<T>::MakeEmpty() {
 
 template<class T>
 double SetType<T>::LoadFactor() const {
-    return (numElems/numBuckets);
+    return ((double)numElems/numBuckets);
 }
 
 template<class T>
