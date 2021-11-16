@@ -206,7 +206,8 @@ void SetType<T>::Rehash(int newNumBuckets) {
 
     // loop through everything in this and add it to the rehashed set
     T item;
-    for (int i = 0; i < this->numBuckets; i++) {
+    ResetIterator();
+    for (int i = 0; i < this->numElems; i++) {
         item = this->GetNextItem();
         rehashedSet.Add(item);
     }
@@ -222,11 +223,11 @@ void SetType<T>::Add(T elem) {
         return;
     }
 
-    // if the load factor is above the maxLoad, then the number of buckets need to be doubled and Rehash should be called
-//    if (this->LoadFactor() > maxLoad) {
-//        Rehash(numBuckets*2);
-//        numBuckets = numBuckets * 2;
-//    }
+    //if the load factor is above the maxLoad, then the number of buckets need to be doubled and Rehash should be called
+    if (this->LoadFactor() > maxLoad) {
+        Rehash(numBuckets*2);
+        numBuckets = numBuckets * 2;
+    }
 
     // find the index that the function is supposed to go in using the GetHashIndex function
     int bucket = GetHashIndex(elem);
