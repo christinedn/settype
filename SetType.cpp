@@ -10,6 +10,7 @@ SetType<T>::SetType() {
     buckets = new forward_list<T>[DEFAULT_BUCKETS];
 
     // Your code here
+    numBuckets = DEFAULT_BUCKETS;
     numElems = 0;
     maxLoad = DEFAULT_LOAD_FACTOR;
 }
@@ -17,6 +18,7 @@ SetType<T>::SetType() {
 template <class T>
 SetType<T>::SetType(int numBucks) {
     buckets = new forward_list<T>[numBucks];
+    numBuckets = numBucks;
     numElems = 0;
     maxLoad = DEFAULT_LOAD_FACTOR;
 }
@@ -67,6 +69,7 @@ SetType<T> SetType<T>::operator+(SetType & otherSet) {
     // Your code here
     // copy all the elements from this instance of the set to result
     result = *this;
+    otherSet.ResetIterator();
     // copy all the remaining elements that you have not already copied in otherSet to the result
     // since the add function knows not to add any elements that already are in the set, the add function can be used to copy the elements
     // also use the iterator to iterate through all the elements
@@ -87,6 +90,7 @@ SetType<T> SetType<T>::operator*(SetType & otherSet) {
 
     // Your code here
     T item;
+    ResetIterator();
     // iterate through either of the sets to find the common elements
     for (int i = 0; i < this->numElems; i++) {
         item = this->GetNextItem();
@@ -105,13 +109,14 @@ SetType<T> SetType<T>::operator-(SetType& otherSet) {
 
     // Your code here
     result = *this;
+    otherSet.ResetIterator();
     // iterate through otherSet
     // if there is a common element between otherSet and this set, remove
     T item;
     for (int i = 0; i < otherSet.numElems; i++) {
         item = otherSet.GetNextItem();
-        if (this->Contains(item)) {
-            this->Remove(item);
+        if (result.Contains(item)) {
+            result.Remove(item);
         }
     }
     ResetIterator();
@@ -122,7 +127,6 @@ template<class T>
 T SetType<T>::GetNextItem() {
     // Your code here
 
-    // currBucket, iterCount, bucketIter
     // if the iterCount is greater than numElems, it means that there are no more elements to iterate over
     if (iterCount > numElems) {
         throw IteratorOutOfBounds();
@@ -130,11 +134,10 @@ T SetType<T>::GetNextItem() {
     // Returns the current item and then move to the next item
     T item;
 
-    bucketIter = buckets[currBucket].begin();
     // this while statement allows you to skip over the buckets that do not contain any elements
     while (bucketIter == buckets[currBucket].end()) {
-        // go the next bucket since no element exists in the previous one
-        currBucket++;
+        // go the next bucket since no element exists in the current one
+        ++currBucket;
         // set the bucketIter to the next bucket as well
         bucketIter = buckets[currBucket].begin();
     }
@@ -164,7 +167,6 @@ void SetType<T>::SetMaxLoad(double max) {
 
     maxLoad = max;
 }
-//SetType& operator=(SetType const& otherSet)
 template<class T>
 SetType<T>& SetType<T>::operator=(SetType const &other) {
     // Your code here
@@ -181,31 +183,17 @@ SetType<T>& SetType<T>::operator=(SetType const &other) {
     this->numBuckets = other.numBuckets;
     this->numElems = other.numElems;
 
+    auto tempBucketIt = other.buckets[0].begin();
     for (int i = 0; i < this->numBuckets; i++) {
-        auto tempBucketIt = other.buckets[i].begin();
-        // this while statement skips over the buckets that do not have any elements
-        while (tempBucketIt == other.buckets[i].end()) {
-            i++;
-            tempBucketIt = other.buckets[i].begin();
-        }
         // at this point it means there are elements that exist in the bucket
-        this->buckets[i].push_front(*tempBucketIt);
-        ++tempBucketIt;
+        while (tempBucketIt != other.buckets[i].end()) {
+            this->buckets[i].push_front(*tempBucketIt);
+            ++tempBucketIt;
+        }
+        // this while statement skips over the buckets that do not have any elements
+        tempBucketIt = other.buckets[i+1].begin();
     }
-//    T item;
-//    for (int i = 0; i < numElems; i++) {
-//        item = other.GetNextItem();
-//        this->Add(item);
-//    }
-//    ResetIterator();
-
-     //iterate through all the buckets
-//    for (int i = 0; i < this->numBuckets; i++) {
-//        // iterate through the linked list within the index
-//        for (auto it = other.buckets[i].begin(); it != other.buckets[i].end(); it++) {
-//            this->buckets[i].push_front(*it);
-//        }
-//    }
+    ResetIterator();
     return *this;
 }
 
@@ -235,10 +223,10 @@ void SetType<T>::Add(T elem) {
     }
 
     // if the load factor is above the maxLoad, then the number of buckets need to be doubled and Rehash should be called
-    if (this->LoadFactor() > maxLoad) {
-        Rehash(numBuckets*2);
-        numBuckets = numBuckets * 2;
-    }
+//    if (this->LoadFactor() > maxLoad) {
+//        Rehash(numBuckets*2);
+//        numBuckets = numBuckets * 2;
+//    }
 
     // find the index that the function is supposed to go in using the GetHashIndex function
     int bucket = GetHashIndex(elem);
@@ -255,6 +243,8 @@ void SetType<T>::Remove(T elem) {
     for (auto it = buckets[bucket].begin(); it != buckets[bucket].end(); it++) {
         if (*it == elem) {
             buckets[bucket].remove(elem);
+            --numElems;
+            return;
         }
     }
 }
@@ -278,6 +268,7 @@ void SetType<T>::MakeEmpty() {
     for (int i = 0; i < numBuckets; i++) {
         buckets[i].clear();
     }
+    numElems = 0;
 
 }
 

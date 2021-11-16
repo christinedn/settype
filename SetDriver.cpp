@@ -22,7 +22,6 @@ void PrintSet(SetType<char>& set) {
 }
 
 int main() {
-
     SetType<char> setA;
     SetType<char> setB;
     SetType<char> setC;
@@ -33,6 +32,14 @@ int main() {
         setA.Add(c);
     }
 
+//    for (char c = 'a'; c <= 'c'; c++) {
+//        setB.Add(c);
+//    }
+//
+//    for (char c = '0'; c < '2'; c++) {
+//        setC.Add(c);
+//    }
+
     for (char c = 'a'; c <= 'z'; c+=2) {
         setB.Add(c);
     }
@@ -41,38 +48,39 @@ int main() {
         setC.Add(c);
     }
 
-    // Print out both sets
-    cout << "setA: ";
-    PrintSet(setA);
-    cout << "setB: ";
-    PrintSet(setB);
-    cout << "setC: ";
-    PrintSet(setC);
-
-    cout << endl;
-
-    // Very basic contains and remove tests
-    cout << "Contains and Removes" << endl;
-    cout << "--------------------------" << endl;
-    if (setA.Contains('a'))
-        cout << "setA contains 'a'" << endl;
-    cout << "Removing 'a' from setA" << endl;
-    setA.Remove('a');
-    if (setA.Contains('a'))
-        cout << "Uh oh... setA still contains 'a'" << endl;
-    else
-        cout << "Woot! setA does NOT contain 'a'" << endl;
-
-    cout << endl;
-
-    cout << "Union test" << endl;
-    cout << "----------" << endl;
-    SetType<char> unionBC;
-    unionBC = setB + setC;  // Trying union
-    cout << "Union B and C: ";
-    PrintSet(unionBC);
-
-    cout << endl;
+//    // Print out both sets
+//    cout << "setA: ";
+//    PrintSet(setA);
+//    cout << "setB: ";
+//    PrintSet(setB);
+//    cout << "setC: ";
+//    PrintSet(setC);
+//
+//    cout << endl;
+//
+//    // Very basic contains and remove tests
+//    cout << "Contains and Removes" << endl;
+//    cout << "--------------------------" << endl;
+//    if (setA.Contains('a'))
+//        cout << "setA contains 'a'" << endl;
+//    cout << "Removing 'a' from setA" << endl;
+//    setA.Remove('a');
+//    if (setA.Contains('a'))
+//        cout << "Uh oh... setA still contains 'a'" << endl;
+//    else
+//        cout << "Woot! setA does NOT contain 'a'" << endl;
+//
+//    cout << endl;
+//
+//    cout << "Union test" << endl;
+//    cout << "----------" << endl;
+//    SetType<char> unionBC;
+//    //unionBC = setB;
+//    unionBC = setB + setC;  // Trying union
+//    cout << "Union B and C: ";
+//    PrintSet(unionBC);
+//
+//    cout << endl;
 
     // Tests the MakeEmpty
     setA.MakeEmpty();
@@ -94,27 +102,27 @@ int main() {
     PrintSet(setB);
     cout << endl;
 
-    cout << "Difference test" << endl;
-    cout << "---------------" << endl;
-    SetType<char> diffAB;
-    diffAB = setA - setB;  // Trying difference
-    cout << "Difference A and B: ";
-    PrintSet(diffAB);
-    SetType<char> diffBA;
-    diffBA = setB - setA;  // Trying difference
-    cout << "Difference B and A: ";
-    PrintSet(diffBA);
-
-    cout << endl;
-
-    cout << "Intersection test" << endl;
-    cout << "-----------------" << endl;
-    SetType<char> intersectAB;
-    intersectAB = setA*setB;  // Trying intersect
-    cout << "Intersection A and B: ";
-    PrintSet(intersectAB);
-
-    cout << endl;
+//    cout << "Difference test" << endl;
+//    cout << "---------------" << endl;
+//    SetType<char> diffAB;
+//    diffAB = setA - setB;  // Trying difference
+//    cout << "Difference A and B: ";
+//    PrintSet(diffAB);
+//    SetType<char> diffBA;
+//    diffBA = setB - setA;  // Trying difference
+//    cout << "Difference B and A: ";
+//    PrintSet(diffBA);
+//
+//    cout << endl;
+//
+//    cout << "Intersection test" << endl;
+//    cout << "-----------------" << endl;
+//    SetType<char> intersectAB;
+//    intersectAB = setA*setB;  // Trying intersect
+//    cout << "Intersection A and B: ";
+//    PrintSet(intersectAB);
+//
+//    cout << endl;
 
     cout << "Iterator test" << endl;
     cout << "-------------" << endl;
