@@ -23,15 +23,23 @@ void PrintSet(SetType<char>& set) {
 
 int main() {
     SetType<char> setA;
-    SetType<char> setB;
-    SetType<char> setC;
-    SetType<char> setD;
-
-
+    // at v you need to rehash
+    // maxLoad set to 1
+    // 22 elements 22/10 = 2.2
     for (char c = 'a'; c <= 'z'; c++) {
         setA.Add(c);
     }
-
+    PrintSet(setA);
+//    SetType<char> setA;
+//    SetType<char> setB;
+//    SetType<char> setC;
+//    SetType<char> setD;
+//
+//
+//    for (char c = 'a'; c <= 'z'; c++) {
+//        setA.Add(c);
+//    }
+//
 //    for (char c = 'a'; c <= 'c'; c++) {
 //        setB.Add(c);
 //    }
@@ -39,15 +47,15 @@ int main() {
 //    for (char c = '0'; c < '2'; c++) {
 //        setC.Add(c);
 //    }
-
-    for (char c = 'a'; c <= 'z'; c+=2) {
-        setB.Add(c);
-    }
-
-    for (char c = '0'; c <= '9'; c++) {
-        setC.Add(c);
-    }
-
+//
+//    for (char c = 'a'; c <= 'z'; c+=2) {
+//        setB.Add(c);
+//    }
+//
+//    for (char c = '0'; c <= '9'; c++) {
+//        setC.Add(c);
+//    }
+//
 //    // Print out both sets
 //    cout << "setA: ";
 //    PrintSet(setA);
@@ -81,27 +89,27 @@ int main() {
 //    PrintSet(unionBC);
 //
 //    cout << endl;
-
-    // Tests the MakeEmpty
-    setA.MakeEmpty();
-    setB.MakeEmpty();
-
-    // setA will contain {a, b, c, d}
-    for (char c = 'a'; c < 'e'; c++) {
-        setA.Add(c);
-    }
-
-    // setB will contain {b, d, e}
-    setB.Add('b');
-    setB.Add('d');
-    setB.Add('e');
-
-    cout << "setA: ";
-    PrintSet(setA);
-    cout << "setB: ";
-    PrintSet(setB);
-    cout << endl;
-
+//
+//    // Tests the MakeEmpty
+//    setA.MakeEmpty();
+//    setB.MakeEmpty();
+//
+//    // setA will contain {a, b, c, d}
+//    for (char c = 'a'; c < 'e'; c++) {
+//        setA.Add(c);
+//    }
+//
+//    // setB will contain {b, d, e}
+//    setB.Add('b');
+//    setB.Add('d');
+//    setB.Add('e');
+//
+//    cout << "setA: ";
+//    PrintSet(setA);
+//    cout << "setB: ";
+//    PrintSet(setB);
+//    cout << endl;
+//
 //    cout << "Difference test" << endl;
 //    cout << "---------------" << endl;
 //    SetType<char> diffAB;
@@ -123,24 +131,24 @@ int main() {
 //    PrintSet(intersectAB);
 //
 //    cout << endl;
-
-    cout << "Iterator test" << endl;
-    cout << "-------------" << endl;
-    try {
-        setA.ResetIterator();
-
-        cout << "{ ";
-        for (int i = 0; i < setA.Size(); i++) {
-            cout << setA.GetNextItem() << " ";
-        }
-        cout << "}" << ", size = " << setA.Size() << endl;
-        setA.GetNextItem();
-
-    }
-    catch (IteratorOutOfBounds& error) {
-        cout << "Error caught successfully" << endl;
-        cout << error.Msg() << endl;
-    }
+//
+//    cout << "Iterator test" << endl;
+//    cout << "-------------" << endl;
+//    try {
+//        setA.ResetIterator();
+//
+//        cout << "{ ";
+//        for (int i = 0; i < setA.Size(); i++) {
+//            cout << setA.GetNextItem() << " ";
+//        }
+//        cout << "}" << ", size = " << setA.Size() << endl;
+//        setA.GetNextItem();
+//
+//    }
+//    catch (IteratorOutOfBounds& error) {
+//        cout << "Error caught successfully" << endl;
+//        cout << error.Msg() << endl;
+//    }
 
     return 0;
 }
