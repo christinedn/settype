@@ -128,7 +128,7 @@ T SetType<T>::GetNextItem() {
     // Your code here
 
     // if the iterCount is greater than numElems, it means that there are no more elements to iterate over
-    if (iterCount > numElems) {
+    if (iterCount >= numElems) {
         throw IteratorOutOfBounds();
     }
     // Returns the current item and then move to the next item

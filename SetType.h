@@ -131,7 +131,7 @@ public:
      * Precondition: None
      * Postcondition: All the elements from otherSet will be copied to this set
      */
-    SetType& operator=(SetType const& otherSet);  // Assignment (does deep copy)
+    SetType& operator=(SetType const & otherSet);  // Assignment (does deep copy)
     /*
      * Function: Resets the iterator
      * Precondition: None
@@ -140,8 +140,8 @@ public:
     void ResetIterator();	// Reset iterator
     /*
      * Function: Finds the next item
-     * Precondition: None
-     * Postcondition: The next item will be returned
+     * Precondition: Iterator must be in bounds
+     * Postcondition: The next item will be returned. Will throw IteratorOutOfBounds error if iterator is not in bounds.
      */
     T GetNextItem();
 
