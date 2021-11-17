@@ -44,10 +44,7 @@ SetType<T> SetType<T>::operator+(T elem) {
     // same strategy can be used in a lot of the operator functions
     // Your code here
 
-    // find the index that the element is supposed to go in by running the elem through the hash function
-    int bucket = GetHashIndex(elem);
-    // put the elem in the corresponding index
-    result.buckets[bucket].push_front(elem);
+    result.Add(elem);
 
     return result;
 }
@@ -224,10 +221,10 @@ void SetType<T>::Add(T elem) {
     }
 
     //if the load factor is above the maxLoad, then the number of buckets need to be doubled and Rehash should be called
-    if (this->LoadFactor() > maxLoad) {
-        Rehash(numBuckets*2);
-        numBuckets = numBuckets * 2;
-    }
+//    if (this->LoadFactor() > maxLoad) {
+//        Rehash(numBuckets*2);
+//        numBuckets = numBuckets * 2;
+//    }
 
     // find the index that the function is supposed to go in using the GetHashIndex function
     int bucket = GetHashIndex(elem);
