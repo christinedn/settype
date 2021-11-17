@@ -221,19 +221,17 @@ void SetType<T>::Add(T elem) {
     }
 
     //if the load factor is above the maxLoad, then the number of buckets need to be doubled and Rehash should be called
-//    if (this->LoadFactor() > maxLoad) {
-//        Rehash(numBuckets*2);
-//        numBuckets = numBuckets * 2;
-//    }
+
 
     // find the index that the function is supposed to go in using the GetHashIndex function
     int bucket = GetHashIndex(elem);
     // put the element in the corresponding index
     buckets[bucket].push_front(elem);
     ++numElems;
-//    cout << "num elements: " << numElems << endl;
-//    cout << "amt of buckets: " << numBuckets << endl;
-//    cout << "load factor: " << (double)numElems/numBuckets << endl;
+
+    if (this->LoadFactor() > maxLoad) {
+        Rehash(numBuckets*2);
+    }
 }
 
 template<class T>
