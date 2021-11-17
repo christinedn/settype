@@ -38,9 +38,9 @@ Assume the set has n items and n buckets.
 
 | Function      | Big-Oh (average)    | 
 | ------------- | ------------------- |
-| Add           | O(Your answer here) |
-| Remove        | O(Your answer here) |
-| Contains      | O(Your answer here) |
+| Add           | O(1) |
+| Remove        | O(1) |
+| Contains      | O(1) |
 
 2. (1 pt/entry) Complete the following tables of Big-Oh. 
 
@@ -51,10 +51,10 @@ there is no difference between average, worst, and best for these functions.)
 
 | Function      | Big-Oh              | 
 | ------------- | --------------------|
-| Union         | O(Your answer here) |
-| Intersection  | O(Your answer here) |
-| Difference    | O(Your answer here) |
-| Assignment    | O(Your answer here) |
+| Union         | O(n+m) |
+| Intersection  | O(n) or O(m), depending on which set you iterate over (doesn't matter which set since you just want to find the common elements) |
+| Difference    | If setA - setB then O(m), if setB - setA then O(n) |
+| Assignment    | If setA = setB then O(m), if setB = setA then O(n) |
 
 3. Suppose you used the following function for GetHashIndex().
 
@@ -69,19 +69,19 @@ How would this affect the Big-oh for the following functions?
 
 | Function      | Big-Oh (average)    | 
 | ------------- | ------------------- |
-| Add           | O(Your answer here) |
-| Remove        | O(Your answer here) |
-| Contains      | O(Your answer here) |
+| Add           | O(n) |
+| Remove        | O(n) |
+| Contains      | O(n) |
 
 4.  (1pts) Suppose you have n items and k*n buckets.  What would be the load
     factor in this case?
 
-    > Your answer here
+    > The load factor would be n/(k*n).
 
 5.  (4pts) What would be the optimal number of buckets to have with
     respect to runtime if you have n items?
 
-    > Your answer here
+    > If you have n items, the optimal number of buckets to have is n since there would be an average of one element in each bucket.
 
     
 ## Recommended Implementation Order
